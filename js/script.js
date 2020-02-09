@@ -1,74 +1,34 @@
-/** ZDEFINIOWANIE PRZYCISKÓW */
+'use strict';
 
-let buttonPaper, buttonRock, buttonScissors, buttonClear;
+function titleClickHandler(event){
+  const clickedElement = this;
+  console.log('Link was clicked!');
 
-buttonClear = document.getElementById('button-clear');
-buttonRock = document.getElementById('button-rock');
-buttonPaper = document.getElementById('button-paper');
-buttonScissors = document.getElementById('button-scissors'); 
-
-buttonClear.addEventListener('click', function(){ 
-  clearMessages();
-  console.log('Przycisk Wyczyść został kliknięty');
-});
-buttonRock.addEventListener('click', function(){ 
-  playGame('1'); 
-});
-buttonPaper.addEventListener('click', function(){ 
-  playGame('2'); 
-});
-buttonScissors.addEventListener('click', function(){ 
-  playGame('3'); 
-});
-
-
-/** PRZYPISANIE RUCHU DO NUMERU */
- /** var argMoveId;
- Czy powyższa linijka jest potrzebna? Przecież to argument funkcji, a nie zmienna? */
-
-function getMoveName(argMoveId) {
-  console.log('Wywołano funkcję getMoveName z argumentem: ' + argMoveId);
-  if (argMoveId == 1) {
-    return 'kamień';
-  } else if (argMoveId == 2) {
-    return 'papier';
-  } else if (argMoveId == 3) {
-    return 'nożyce';
-  } else {
-    printMessage('Nie znam ruchu o id ' + argMoveId + '. Zakładam, że chodziło o "kamień".');
-    return 'kamień';
+  /* remove class 'active' from all article links  */
+  const activeLinks = document.querySelectorAll('.titles a.active');
+  for(let activeLink of activeLinks){
+    activeLink.classList.remove('active');
   }
+
+  /* add class 'active' to the clicked link */
+  console.log('clickedElement:', clickedElement);
+  clickedElement.classList.add('active');
+
+  /* remove class 'active' from all articles */
+  const activeArticles = document.querySelectorAll('.posts article.active');
+  for(let activeArticle of activeArticles){
+    activeArticle.classList.remove('active');
+  }
+
+  /* get 'href' attribute from the clicked link */
+
+  /* find the correct article using the selector (value of 'href' attribute) */
+
+  /* add class 'active' to the correct article */
 }
 
+const links = document.querySelectorAll('.titles a');
 
-/** ODCZYTANIE RUCHU GRACZA, LOSOWANIE LICZBY PRZEZ SKRYPT */
-
-function playGame (playerMoveId) {
-  const playerMove = getMoveName(playerMoveId);
-  console.log('Ruch gracza to: ' + playerMove);
-  const randomNumber = Math.floor(Math.random() * 3 + 1);
-  console.log('Wylosowana liczba to: ' + randomNumber);
-  const computerMove = getMoveName(randomNumber);
-  console.log('Ruch komputera to: ' + computerMove);
-  displayResult(playerMove, computerMove);
-}
-
-/** WYŚWIETLENIE WYNIKU */
-/** var argComputerMove, argPlayerMove;
- Czy powyższa linijka jest potrzebna? Przecież to są argumenty funkcji, a nie zmienne? */
-
-function displayResult(argPlayerMove, argComputerMove) {
-  printMessage('Wybrałem ' + argComputerMove + ', a Ty ' + argPlayerMove);
-  console.log('Wywołano funkcję displayResults z argumentami: ' + argPlayerMove + ', ' + argComputerMove);
-  if (argPlayerMove == 'papier' && argComputerMove == 'kamień') {
-    printMessage('Wygrywasz!');
-  } else if (argPlayerMove == 'kamień' && argComputerMove == 'nożyce') {
-    printMessage('Wygrywasz!');
-  } else if (argPlayerMove == 'nożyce' && argComputerMove == 'papier') {
-    printMessage('Wygrywasz!');
-  } else if (argPlayerMove == argComputerMove) {
-    printMessage('Jest remis! :)');
-  } else {
-    printMessage('Przegrywasz :(');
-  }
+for(let link of links){
+  link.addEventListener('click', titleClickHandler);
 }
