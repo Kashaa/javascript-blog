@@ -1,7 +1,5 @@
 'use strict';
 
- 
-
 /* FUNCTION TITLE CLICK HANDLER - WYŚWIETLENIE TREŚCI ARYKUŁU PO KLIKNIĘCIU NA TYTUŁ*/
 function titleClickHandler(event){
   event.preventDefault();
@@ -18,7 +16,6 @@ function titleClickHandler(event){
   /* add class 'active' to the clicked link */
   console.log('clickedElement:', clickedElement);
   clickedElement.classList.add('active');
-
 
   /* remove class 'active' from all articles */
   const activeArticles = document.querySelectorAll('.posts .active');
@@ -39,21 +36,14 @@ function titleClickHandler(event){
   targetArticle.classList.add('active');
 }
 
-const links = document.querySelectorAll('.titles a');
-console.log(links);
-
-for(let link of links){
-  link.addEventListener('click', titleClickHandler);
-}
-
  
-/* FUNCTION TITLE CLICK HANDLER - GENEROWANIE LISTY TYTULOW*/
-const optArticleSelector = ‘.post’,
-  optTitleSelector = ‘.post-title’,
-  optTitleListSelector = ‘.titles’; 
+/* FUNCTION GENERATE TITLE LINKS - GENEROWANIE LISTY TYTULOW*/
+const optArticleSelector = '.post';
+const  optTitleSelector = '.post-title';
+const  optTitleListSelector = '.titles'; 
 
 function generateTitleLinks(customSelector = '') {
-  console.log('Titles was generated');
+  console.log('Title was generated!');
 
   /* remove contents of titleList - wyczyszczenie listy linkow */
   const titleList = document.querySelector(optTitleListSelector);
@@ -61,9 +51,7 @@ function generateTitleLinks(customSelector = '') {
 
   /* for each article - deklaracja stałej articles i zapisanie do niej odniesienia pasującego do selektora ze stałej optArticleSelector */
   const articles = document.querySelectorAll(optArticleSelector + customSelector);
-  console.log(customSelector);
-
-  let html = '';
+  console.log(articles);
 
   for (let article of articles) {
 
@@ -71,25 +59,24 @@ function generateTitleLinks(customSelector = '') {
     const articleId = article.getAttribute('id');
     console.log(article); 
 
-    /* find the title element - odczytanie tytułu artykułu (odnalezienie elementu i odczytanie jego zawartości) */
+    /* find the title element - znalezienie elementu z tytułem i zapisanie jego zawartości do stałej */
     /* get the title from the title element */
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
  
-    /* create HTML of the link */
+    /* create HTML of the link - stworzenie kodu HTML linka i zapisanie go do stałej*/
+    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>'; 
     console.log(linkHTML);
-    const linkHTML = ‘<li><a href=”#’ + articleId + ‘”><span>’ + articleTitle + ‘</span></a></li>’; 
 
-
-    /* insert link into titleList */
+    /* insert link into titleList - wstawianie stworzonego kodu HTML do listy linków w lewej kolumnie*/
     titleList.insertAdjacentHTML('beforeend', linkHTML);
-
-    /* insert link into html variable */
-
-    html = html + linkHTML;
-    console.log(html);
   }
-
-  titleList.innerHTML = html;
-
 }
+
 generateTitleLinks();
+
+const links = document.querySelectorAll('.titles a');
+console.log(links);
+
+for(let link of links){
+link.addEventListener('click', titleClickHandler);
+}
