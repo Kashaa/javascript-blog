@@ -5,7 +5,6 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  // eslint-disable-next-line no-unused-vars
   optTagsListSelector = '.tags .list',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-';
@@ -297,7 +296,7 @@ function generateAuthors() {
   /* find all authors */
   const authors = document.querySelectorAll(optArticleSelector);
   console.log(authors);
-  
+
   /* START LOOP: for every author: */
   for (let author of authors) {
     
@@ -319,6 +318,7 @@ function generateAuthors() {
     /* add generated code to html variable */
     html = html + linkHTML;
     console.log(html);
+    
     /* [NEW] check if this link is NOT already in allAuthors */
     // eslint-disable-next-line no-prototype-builtins
     if (!allAuthors.hasOwnProperty(articleAuthor)) {
@@ -333,7 +333,7 @@ function generateAuthors() {
     authorsWrapper.innerHTML = html;
   }
 
-    /* [NEW] find list of tags in right column */
+    /* [NEW] find list of authors in right column */
     const authorList = document.querySelector('.authors');
     const authorParams = calculateAuthorsParams(allAuthors);
     console.log('authorParams', authorParams);
@@ -341,7 +341,7 @@ function generateAuthors() {
     /*[NEW] create variable for all links HTML code */
     let allAuthorsHTML = '';
     
-    /*[NEW] Start loop: for each tag in allTags: */
+    /*[NEW] Start loop: for each author in allAuthors: */
     for (let articleAuthor in allAuthors) {
       const authorLinkHTML = '<li><a class="' + calculateTagClass(allAuthors[articleAuthor], authorParams) + '" href="#author-' + articleAuthor + '">' + articleAuthor + ' (' + allAuthors[articleAuthor] + ')</a></li>';
       console.log('taglinkHTML:', authorLinkHTML);
@@ -405,7 +405,7 @@ function authorClickHandler(event) {
   }
   
   /* execute function "generateTitleLinks" with article selector as argument */
-  generateTitleLinks('[data-author="' + author + '"]');
+  generateTitleLinks('[data-author~="' + author + '"]');
 }
 
 
@@ -421,6 +421,8 @@ function addClickListenersToAuthors() {
     
     /* add tagClickHandler as event listener for that link */
     authorLink.addEventListener('click', authorClickHandler);
+
+    /* END LOOP: for each link */
   }
 }
 
