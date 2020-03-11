@@ -52,7 +52,7 @@ function titleClickHandler(event) {
 
 /* FUNCTION GENERATE TITLE LINKS - GENEROWANIE LISTY TYTULOW*/
 function generateTitleLinks(customSelector = ''){
-  console.log('Titles was generated');
+  console.log('Title was generated');
   
   /* remove contents of titleList */
   const titleList = document.querySelector(optTitleListSelector);
@@ -85,14 +85,15 @@ function generateTitleLinks(customSelector = ''){
   }
 
   titleList.innerHTML = html;
+
+  const links = document.querySelectorAll('.titles a');
+  console.log(links);
+  for (let link of links) {
+    link.addEventListener('click', titleClickHandler);
+  }
 }
 
 generateTitleLinks();
-const links = document.querySelectorAll('.titles a');
-console.log(links);
-for (let link of links) {
-  link.addEventListener('click', titleClickHandler);
-}
 
 function calculateTagsParams(tags) {
   const params = {
@@ -406,7 +407,7 @@ function authorClickHandler(event) {
   }
   
   /* execute function "generateTitleLinks" with article selector as argument */
-  generateTitleLinks('[data-author~="' + author + '"]');
+  generateTitleLinks('[data-author="' + author + '"]');
 }
 
 
@@ -414,7 +415,7 @@ function authorClickHandler(event) {
 function addClickListenersToAuthors() {
   
   /* find all links to authors */
-  const authorLinks = document.querySelectorAll(optArticleAuthorSelector + '.post-author a');
+  const authorLinks = document.querySelectorAll(optArticleAuthorSelector + '.post-author a, .list.authors a');
   console.log(authorLinks);
   
   /* START LOOP: for each link */
